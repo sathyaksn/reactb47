@@ -27,29 +27,30 @@
 //     )
 //   }
 // }
+
+// CLASS COMPONENT using external folder
+
 // import React, { Component } from 'react'
 // import Hello  from "./components/hello"
-// export default class 
+// export  class 
 // App extends Component {
 //   render() {
 //     return (
 //       <div>
-//       <Hello/>
+//       <Hello name={'sathya'}/>
 //       </div>
 //     )
 //   }
 // }
 
-//  
-
+// function component using external folder
 import React from 'react'
-import Hello from './components/hello'
+import Hello from "./components/hello"
 function App() {
   return (
-    <div>
-      <Hello/>
-    </div>
+    <div><Hello name={"sathya"} /></div>
   )
 }
 
 export default App
+
