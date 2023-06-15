@@ -142,41 +142,44 @@
 
 //props drilling
 
-import React from 'react'
+import React, { useState } from 'react';
 
-function Child({parentdata}){
-  
-  return(
-  <div>
-    <h2>childu</h2>
-    <Grandfather parentdata={parentdata}/>
-  </div>
- 
-  ) 
-}
-function Grandfather({parentdata}){
-  
-  return(
-  <div>
-    <h2>child</h2>
-    
-  </div>
- 
+function ChildComponent({onMessage}) {
+
+  const message = 'Hello from Child';
+
+  const handleClick = () => {
+    onMessage(message);
+  }
+
+  return (
+    <>
+      <h2>Child Component</h2>
+      <button onClick={handleClick}>Send Message to the Parent</button>
+    </>
   )
 }
 
-
-
-
-
 function App() {
+
+  // set a state to handle child data
+  const [message, setMessage] = useState('');
+
+  const handleMessage = (data) => {
+    setMessage(data);
+  }
 
   return (
     <div>
-      <h1>parent coment</h1>
-<Child parentdata={'hello'} />
+      <h2>Parent Component</h2>
+      <p>Message from the Child Component: { message }</p>
+      <ChildComponent onMessage={ handleMessage } />
     </div>
   )
 }
 
-export default App
+export default App;
+
+
+
+
