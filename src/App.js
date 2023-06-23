@@ -1,166 +1,110 @@
-// import React, { useEffect, useState } from 'react'
+// import React, { createContext, useContext, useState } from 'react'
+// const MessageContext=createContext()
+
+// function Grandfather() {
+//   const message =useContext(MessageContext)
+//   return (
+//     <div>
+//       <h2>grand father</h2>
+//       <p>{message}</p>
+     
+//     </div>
+//   )
+// }
+
+// function Child() {
+//   const message =useContext(MessageContext)
+//   return (
+//     <div>
+//       <h2>child2</h2>
+//       <p>{message}</p>
+//       <Grandfather/>
+//     </div>
+//   )
+// }
+
 
 // function App() {
-//     const [good,setgood]=useState(0)
-//     const[neutral,setneutra]=useState(0)
-//     const[all,setall]=useState(0)
-//     const[bad,setbad]=useState(0)  
-//     const[InitialRender,setInitialRender]=useState(true)
-// useEffect(()=>{
-// if(InitialRender){
-//     setInitialRender(false)
-//     return;
-// }
-// setall(all+1)
-// },[good,neutral,bad])
+//   const[message,setmessage]=useState('hello')
+//   return (
+//     <div>
+// <h1>parent1</h1>
+// <MessageContext.Provider value={message}>
+//   <Child/>
 
-
-
-
-
-
-
-//     const handleclickgood=()=>{
-//         setgood(good+1)
-//     }
-//     const handleclickneutral=()=> {
-//         setneutra(neutral +1)
-//         }
-//     const handleclickbad=()=> {
-//         setbad(bad+1)
-//        }
-    
-   
-   
-// return(
-// <div>
-//     <h3>feedback</h3>
-// <button onClick={handleclickgood}>good</button>
-//     <button onClick={handleclickneutral}>neutral</button>
-//     <button onClick={handleclickbad}>bad</button>
-//     <h4>staticsis</h4>
-//     <p>good{good}</p>
-//     <p>all{all}</p>
-//     <p >bad{bad}</p>
-//     <p>neutral{neutral}</p>
-//     <p>average{(all)/3}</p>
-//     <p>positive{Math.round (good/(all)*100)}%</p>
-
+// </MessageContext.Provider>
 //     </div>
 //   )
 // }
 
 // export default App
-// without React Router
-// import React, { useState } from 'react';
-// import { Link, Route, BrowserRouter as Router, Routes, useParams } from 'react-router-dom';
 
-// function Home() {
-//   return (
-//     <div>
-//       <h2>Notes App</h2>
-//     </div>
-//   )
-// }
+      
+/*
+  Session task – profile name changes
 
-// function Note({notes}) {
-//   const id = useParams().id;
-//   const note = notes.find(n => n.id === Number(id));
+  Implement a React component that allows users to change their profile name using the Context API. 
+  - the component should consist of two parts: a parent component called App and
+  - a child component called Profile.
 
-//   return (
-//     <div>
-//       <h1>{note.content}</h1>
-//     </div>
-//   )
-// }
+  The App component should:
+    - Import necessary dependencies from the React library
+    - Create a context object using the createContext function from React.
+    - Define a state variable called profileName using the useState hook and set its initial value to an empty string.
+    - Wrap the Profile component with the context provider component, passing the profileName state and its corresponding setter function as the vallue prop.
 
-// function Notes({ notes }) {
-//   return (
-//     <div>
-//       <h2>Notes</h2>
-//       <ul>
-//         {
-//           notes.map(note => 
-//             <li key={note.id}><Link to={`/notes/${note.id}`}>{ note.content }</Link></li>
-//           )
-//         }
-//       </ul>
-//     </div>
-//   )
-// }
+  The Profile component should:
+    - Import necessary dependencies from the React library
+    - Use the useContext hook to access the profileName state variable and its setter function from the context.
+    - Render an input field where users can enter their profile name, with its value set to the profileName state variable.
+    - Add an onChange event handler to the input field that updates the profileName state variable with the entered value using the setter function.
+    - Make sure to export the App component as the default import.
+*/
 
-// function Users() {
-//   return (
-//     <div>
-//       <h2>Users App</h2>
-//     </div>
-//   )
-// }
+// Import necessary dependencies from the React library
+import React, { createContext, useContext, useState } from 'react';
 
-// function App() {
+// Create a context object using the createContext function from React.
+const ProfileContext = createContext();
 
-//   const notes = [
-//     {
-//       id: 1,
-//       content: 'Javascript'
-//     },
-//     {
-//       id: 2,
-//       content: 'ReactJS'
-//     },
-//     {
-//       id: 3,
-//       content: 'NodeJS'
-//     }
-//   ];
+// The Profile component
+function Profile() {
+  // Use the useContext hook to access the profileName state variable and its setter function from the context.
+  const { profileName, setProfileName } = useContext(ProfileContext);
 
-//   const padding = {
-//     padding: 10
-//   };
+  // Add an onChange event handler to the input field that updates the profileName state variable with the entered value using the setter function.
+  let onChangeProfileNameHandler = (event) => {
+    setProfileName(event.target.value);
+    // console.log(event.target.value);
+  }
 
-//   return (
-//     <Router>
-//       <div>
-//         <Link to='/' style={padding}>home</Link>
-//         <Link to='/notes' style={padding}>notes</Link>
-//         <Link to='/users' style={padding}>users</Link>
-//       </div>
-
-//       <Routes>
-//         <Route path='/notes/:id' element={ <Note notes={notes}/> } />
-//         <Route path='/users' element={ <Users /> } />
-//         <Route path='/notes' element={<Notes notes={notes} /> } />
-//         <Route path='/' element={ <Home /> } />
-//       </Routes>
-//     </Router>
-//   )
-// }
-
-// export default App;
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.css';
-function App() {
+  // Render an input field where users can enter their profile name, with its value set to the profileName state variable.
   return (
     <div>
-      <button className='btn btn-dark'>clickhere</button>
+      <h2>Profile Name: { profileName }</h2>
+      <input
+        type='text'
+        value={profileName}
+        onChange={onChangeProfileNameHandler}
+      />
     </div>
   )
 }
 
-export default App
+function App() {
 
+  // Define a state variable called profileName using the useState hook and set its initial value to an empty string.
+  const [profileName, setProfileName] = useState('');
 
+  // Wrap the Profile component with the context provider component, passing the profileName state and its corresponding setter function as the vallue prop.
+  return (
+    <div>
+      <ProfileContext.Provider value={{profileName, setProfileName}}>
+        <Profile />
+      </ProfileContext.Provider>
+    </div>
+  )
+}
 
-{/* <Router> 
-<div>
-
-<Link to='/' style={padding}>home</Link>
-<Link to='/notes' style={padding}>notes</Link>
-<Link to='/users' style={padding}>users</Link>
-</div>
-<Routes>
-<Route path='/users'element={<Users/>}/> 
-<Route path='/notes' element={<Notes/>}/>
-<Route path='/'element={<Home/>}/>
-</Routes>
-</Router>  */}
+// Make sure to export the App component as the default import.
+export default App;
